@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic"
-import { type LightbulbIcon as LucideProps, MessageCircle } from "lucide-react"
+import { MessageCircle } from "lucide-react"
+import type React from "react"
 
 // Mapeamento de nomes de string para componentes de ícone Lucide React
 // Adicione mais ícones conforme necessário para seus menus
@@ -16,7 +17,7 @@ const iconComponents = {
   // Adicione outros ícones que você planeja usar nos menus
 }
 
-interface DynamicLucideIconProps extends LucideProps {
+interface DynamicLucideIconProps extends React.SVGProps<SVGSVGElement> {
   name: string
 }
 
