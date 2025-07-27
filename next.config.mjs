@@ -12,6 +12,5 @@ const nextConfig = {
 }
 
 export default {
-  output: 'export',
   // ...outras configurações que já existirem
 }
