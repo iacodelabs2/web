@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { supabase } from "@/lib/supabase-client"
+import { getSupabaseClient } from "@/lib/supabase-client"
 
 interface AuthGuardProps {
   children: React.ReactNode
@@ -18,6 +18,7 @@ export function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
 
   useEffect(() => {
     const checkAuth = async () => {
+      const supabase = getSupabaseClient();
       const {
         data: { user },
       } = await supabase.auth.getUser()
