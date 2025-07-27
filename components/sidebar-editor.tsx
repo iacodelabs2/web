@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { DynamicLucideIcon } from "@/components/dynamic-lucide-icon" // Importar o componente de ícone dinâmico
 
-// Definir os valores padrão para o sidebar
+// Definir os valores padrão para o sidebar!
 const defaultSidebarSettings = {
   background_color: "#171717", // Cor de fundo do sidebar
   text_color: "#F9FAFB", // Cor do texto padrão

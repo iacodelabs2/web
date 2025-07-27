@@ -109,9 +109,9 @@ const ChartTooltipContent = React.forwardRef<
     active?: boolean
     payload?: any[]
     className?: string
-    indicator?: "line" | "dot" | "dashed"
-    nameKey?: string
-    labelKey?: string
+      indicator?: "line" | "dot" | "dashed"
+      nameKey?: string
+      labelKey?: string
     label?: any
     labelFormatter?: any
     labelClassName?: string
@@ -274,7 +274,7 @@ const ChartLegendContent = React.forwardRef<
     verticalAlign?: VerticalAlignmentType;
     hideIcon?: boolean;
     nameKey?: string;
-  }
+    }
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
