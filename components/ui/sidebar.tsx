@@ -133,18 +133,16 @@ SidebarMenu.displayName = RovingFocusGroupPrimitive.Root.displayName
 // SidebarMenuItem is now the RovingFocusGroupPrimitive.Item, using asChild to pass props to the li
 const SidebarMenuItem = React.forwardRef<
   React.ElementRef<typeof RovingFocusGroupPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof RovingFocusGroupPrimitive.Item>
+  Omit<React.ComponentPropsWithoutRef<typeof RovingFocusGroupPrimitive.Item>, "children"> & {
+    children: React.ReactNode
+  }
 >(({ className, children, ...props }, ref) => (
   <RovingFocusGroupPrimitive.Item
     ref={ref}
     asChild // Pass RovingFocusGroupItem props to the li element
     {...props}
   >
-    <li className={cn("relative", className)}>
-      {typeof children === "function"
-        ? children({ hasTabStop: false, isCurrentTabStop: false })
-        : children}
-    </li>
+    <li className={cn("relative", className)}>{children}</li>
   </RovingFocusGroupPrimitive.Item>
 ))
 SidebarMenuItem.displayName = RovingFocusGroupPrimitive.Item.displayName
