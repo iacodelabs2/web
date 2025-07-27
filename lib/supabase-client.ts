@@ -23,6 +23,3 @@ export function getSupabaseServerClient() {
   )
 }
 
-// Export a direct instance for convenience in some client-side contexts if preferred,
-// though getSupabaseClient() is recommended for consistent singleton usage.
-export const supabase = getSupabaseClient()

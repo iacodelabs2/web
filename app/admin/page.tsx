@@ -140,11 +140,11 @@ const clients = [
   },
 ]
 
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
   const [userName, setUserName] = useState("Admin") // Default name
   const router = useRouter()
-  const supabase = getSupabaseClient()
 
   useEffect(() => {
     document.body.classList.add("dark-theme")
@@ -154,6 +154,7 @@ export default function AdminDashboard() {
   }, [])
 
   useEffect(() => {
+    const supabase = getSupabaseClient()
     const checkAuthAndFetchUser = async () => {
       const {
         data: { user },
@@ -175,9 +176,10 @@ export default function AdminDashboard() {
     }
 
     checkAuthAndFetchUser()
-  }, [router, supabase])
+  }, [router])
 
   const handleLogout = async () => {
+    const supabase = getSupabaseClient()
     const { error } = await supabase.auth.signOut()
     if (error) {
       console.error("Error logging out:", error.message)
