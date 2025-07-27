@@ -140,7 +140,11 @@ const SidebarMenuItem = React.forwardRef<
     asChild // Pass RovingFocusGroupItem props to the li element
     {...props}
   >
-    <li className={cn("relative", className)}>{children}</li>
+    <li className={cn("relative", className)}>
+      {typeof children === "function"
+        ? children({ hasTabStop: false, isCurrentTabStop: false })
+        : children}
+    </li>
   </RovingFocusGroupPrimitive.Item>
 ))
 SidebarMenuItem.displayName = RovingFocusGroupPrimitive.Item.displayName
