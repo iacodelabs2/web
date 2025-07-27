@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { supabase } from "@/lib/supabase-client" // Importar o cliente Supabase
+import { getSupabaseClient } from "@/lib/supabase-client"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -20,8 +20,9 @@ export default function ForgotPasswordPage() {
     setMessage("")
     setError("")
 
+    const supabase = getSupabaseClient()
     const { error: supabaseError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/update-password`, // URL para onde o usuário será redirecionado após clicar no link do e-mail
+      redirectTo: `${window.location.origin}/auth/update-password`,
     })
 
     if (supabaseError) {

@@ -1,3 +1,5 @@
+
+export const dynamic = "force-dynamic";
 "use client"
 
 import type React from "react"
@@ -19,7 +21,6 @@ export default function RegisterPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const supabase = getSupabaseClient() // Obter a instância do cliente Supabase
 
   useEffect(() => {
     // Adicionar classe para o tema escuro no body
@@ -34,6 +35,7 @@ export default function RegisterPage() {
     setLoading(true)
     setError("")
 
+    const supabase = getSupabaseClient()
     const { data, error: supabaseError } = await supabase.auth.signUp({
       email,
       password,
