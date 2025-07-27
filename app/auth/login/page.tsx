@@ -12,13 +12,13 @@ import { getSupabaseClient } from "@/lib/supabase-client" // Importar a função
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
+
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const supabase = getSupabaseClient() // Obter a instância do cliente Supabase
 
   useEffect(() => {
     // Adicionar classe para o tema escuro no body
@@ -33,6 +33,7 @@ export default function LoginPage() {
     setLoading(true)
     setError("")
 
+    const supabase = getSupabaseClient()
     const { data, error: supabaseError } = await supabase.auth.signInWithPassword({
       email,
       password,
