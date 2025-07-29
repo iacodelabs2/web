@@ -9,7 +9,7 @@ import { Save } from "lucide-react"
 
 export function ColorsEditor() {
   const [colorSettings, setColorSettings] = useState({
-    primary_color: "#9333EA", // Ex: purple-600
+    primary_color: "#009FCC", // Ex: purple-600
     secondary_color: "#4B5563", // Ex: gray-600
     accent_color: "#FACC15", // Ex: yellow-400
     background_color: "#0A0A0A", // Ex: gray-950

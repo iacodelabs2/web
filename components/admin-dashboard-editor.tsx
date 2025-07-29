@@ -12,7 +12,7 @@ export function AdminDashboardEditor() {
     header_title: "Dashboard Administrativo",
     overview_card_bg_color: "#1F2937", // Cor de fundo dos cards de overview
     overview_text_color: "#F9FAFB",
-    overview_button_bg_color: "#9333EA",
+    overview_button_bg_color: "#009FCC",
     overview_button_text_color: "#FFFFFF",
     // Placeholder para outras seções do dashboard
     contacts_card_bg_color: "#1F2937",
