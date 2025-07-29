@@ -60,6 +60,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div className={`flex min-h-screen flex-col ${bgColor} ${textColor} transition-colors duration-300`}>
       <header className={`container mx-auto px-4 py-6 ${bgColor} fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur`} style={{backgroundColor: darkMode ? '#009FCCcc' : '#ffffffcc'}}>
         <div className="flex items-center justify-between w-full">
@@ -121,10 +122,21 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
               <li>
                 <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
 >>>>>>> parent of 2e44395 (.)
+=======
+    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-50">
+      <header className="container mx-auto px-4 py-6">
+        <div className="flex items-center justify-between w-full">
+          <div className="text-2xl font-bold text-purple-500 flex-shrink-0">{siteContent.header_logo_text}</div>
+          <nav className="flex-1 flex justify-center">
+            <ul className="flex space-x-6">
+              <li>
+                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
+>>>>>>> parent of 2e44395 (.)
                   Recursos
                 </Link>
               </li>
               <li>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -149,10 +161,14 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 =======
                 <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
 >>>>>>> parent of 2e44395 (.)
+=======
+                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
+>>>>>>> parent of 2e44395 (.)
                   Projetos
                 </Link>
               </li>
               <li>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -177,6 +193,9 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 =======
                 <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
 >>>>>>> parent of 2e44395 (.)
+=======
+                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
+>>>>>>> parent of 2e44395 (.)
                   Sobre Nós
                 </Link>
               </li>
@@ -186,10 +205,14 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <Link
                   className={`text-white hover:text-white${activeHash === '#contact' ? ' font-bold underline' : ''}`}
                   href="#contact"
                 >
+=======
+                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
+>>>>>>> parent of 2e44395 (.)
 =======
                 <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
 >>>>>>> parent of 2e44395 (.)
@@ -225,7 +248,11 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
               <button className={`px-4 py-2 rounded font-semibold border ${borderColor} ${buttonBg} ${buttonHover} transition-colors`}>
+=======
+              <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
+>>>>>>> parent of 2e44395 (.)
 =======
               <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
 >>>>>>> parent of 2e44395 (.)
@@ -256,6 +283,9 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 2e44395 (.)
+=======
 >>>>>>> parent of 2e44395 (.)
 =======
 >>>>>>> parent of 2e44395 (.)
