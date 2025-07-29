@@ -89,7 +89,7 @@ export default function LoginPage() {
       <div className="relative z-10 w-full max-w-md p-8">
         <Card className="bg-gray-900 border-gray-800 text-gray-50 shadow-lg">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-3xl font-bold text-purple-500">Entrar</CardTitle>
+            <CardTitle className="text-3xl font-bold text-[#009FCC]">Entrar</CardTitle>
             <CardDescription className="text-gray-400">Acesse sua conta IA Code Labs</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -103,14 +103,14 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400 focus:border-purple-500"
+                  className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400 focus:border-[#009FCC]"
                 />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Senha</Label>
                   <Link
-                    className="text-sm underline text-purple-400 hover:text-purple-300"
+                    className="text-sm underline text-[#009FCC] hover:text-[#00BFFF]"
                     href="/auth/forgot-password"
                   >
                     Esqueceu a senha?
@@ -126,13 +126,13 @@ export default function LoginPage() {
                 />
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700" disabled={loading}>
+              <Button type="submit" className="w-full bg-[#009FCC] hover:bg-[#00BFFF]" disabled={loading}>
                 {loading ? "Entrando..." : "Entrar"}
               </Button>
             </form>
             <div className="mt-4 text-center text-sm text-gray-400">
               Não tem uma conta?{" "}
-              <Link className="underline text-purple-400 hover:text-purple-300" href="/auth/register">
+              <Link className="underline text-[#009FCC] hover:text-[#00BFFF]" href="/auth/register">
                 Cadastre-se
               </Link>
             </div>
