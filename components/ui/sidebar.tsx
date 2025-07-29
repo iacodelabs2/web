@@ -161,8 +161,8 @@ const SidebarMenuButton = React.forwardRef<
     <Comp
       ref={ref}
       className={cn(
-        "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground transition-colors hover:bg-purple-600 hover:text-white", // Alterado hover
-        isActive && "bg-purple-600 text-white", // Alterado isActive
+        "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground transition-colors hover:bg-[#009FCC] hover:text-white", // Alterado hover
+        isActive && "bg-[#009FCC] text-white", // Alterado isActive
         className,
       )}
       {...props}

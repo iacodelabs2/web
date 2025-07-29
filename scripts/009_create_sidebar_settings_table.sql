@@ -3,7 +3,7 @@ CREATE TABLE sidebar_settings (
   id INT PRIMARY KEY DEFAULT 1, -- Assuming a single row for global sidebar settings
   background_color TEXT DEFAULT '#171717',
   text_color TEXT DEFAULT '#F9FAFB',
-  active_bg_color TEXT DEFAULT '#9333EA',
+  active_bg_color TEXT DEFAULT '#009FCC',
   active_text_color TEXT DEFAULT '#FFFFFF',
   menu_items JSONB DEFAULT '[
     {"id": "1", "label": "Visão Geral", "icon": "LayoutDashboard", "url": "overview"},

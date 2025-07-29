@@ -1,10 +1,12 @@
+
 import Link from "next/link"
+import { useState, useEffect } from "react"
 import { ProjectsManager } from "@/components/projects-manager"
 import { ProjectsShowcase } from "@/components/projects-showcase"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Code, Lightbulb, Rocket } from "lucide-react"
+import { Code, Lightbulb, Rocket, Sun, Moon } from "lucide-react"
 
 interface LandingPageContent {
   header_logo_text: string
@@ -37,16 +39,31 @@ interface LandingPagePreviewProps {
 }
 
 export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
+  const [darkMode, setDarkMode] = useState(true);
+  const [activeHash, setActiveHash] = useState("");
+  useEffect(() => {
+    setActiveHash(window.location.hash);
+    const onHashChange = () => setActiveHash(window.location.hash);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+  const bgColor = darkMode ? "bg-[#009FCC]" : "bg-white";
+  const textColor = darkMode ? "text-white" : "text-[#131C2E]";
+  const cardBg = darkMode ? "bg-[#009FCC]" : "bg-[#F3F4F6]";
+  const cardText = darkMode ? "text-white" : "text-[#131C2E]";
+  const borderColor = darkMode ? "border-white" : "border-[#009FCC]";
+  const buttonBg = darkMode ? "bg-white text-[#009FCC]" : "bg-[#009FCC] text-white";
+  const buttonHover = darkMode ? "hover:bg-white" : "hover:bg-[#00BFFF]";
   return (
-    <div className="flex min-h-screen flex-col bg-[#009FCC] text-white">
-      <header className="container mx-auto px-4 py-6 bg-[#009FCC]">
+    <div className={`flex min-h-screen flex-col ${bgColor} ${textColor} transition-colors duration-300`}>
+      <header className={`container mx-auto px-4 py-6 ${bgColor} fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur`} style={{backgroundColor: darkMode ? '#009FCCcc' : '#ffffffcc'}}>
         <div className="flex items-center justify-between w-full">
-          <div className="text-2xl font-bold text-white flex-shrink-0">{siteContent.header_logo_text}</div>
+          <div className={`text-2xl font-bold flex-shrink-0 ${textColor}`}>{siteContent.header_logo_text}</div>
           <nav className="flex-1 flex justify-center">
             <ul className="flex space-x-6">
               <li>
                 <Link
-                  className={`text-white hover:text-white${typeof window !== 'undefined' && window.location.hash === '#features' ? ' font-bold underline' : ''}`}
+                  className={`text-white hover:text-white${activeHash === '#features' ? ' font-bold underline' : ''}`}
                   href="#features"
                 >
                   Recursos
@@ -54,7 +71,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
               </li>
               <li>
                 <Link
-                  className={`text-white hover:text-white${typeof window !== 'undefined' && window.location.hash === '#projects' ? ' font-bold underline' : ''}`}
+                  className={`text-white hover:text-white${activeHash === '#projects' ? ' font-bold underline' : ''}`}
                   href="#projects"
                 >
                   Projetos
@@ -62,7 +79,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
               </li>
               <li>
                 <Link
-                  className={`text-white hover:text-white${typeof window !== 'undefined' && window.location.hash === '#about' ? ' font-bold underline' : ''}`}
+                  className={`text-white hover:text-white${activeHash === '#about' ? ' font-bold underline' : ''}`}
                   href="#about"
                 >
                   Sobre Nós
@@ -70,7 +87,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
               </li>
               <li>
                 <Link
-                  className={`text-white hover:text-white${typeof window !== 'undefined' && window.location.hash === '#contact' ? ' font-bold underline' : ''}`}
+                  className={`text-white hover:text-white${activeHash === '#contact' ? ' font-bold underline' : ''}`}
                   href="#contact"
                 >
                   Contato
@@ -78,9 +95,17 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
               </li>
             </ul>
           </nav>
-          <div className="flex-shrink-0 ml-6">
+          <div className="flex-shrink-0 ml-6 flex items-center gap-2">
+            {/* Botão de alternância de modo ao lado do usuário */}
+            <button
+              aria-label="Alternar tema"
+              className={`p-2 rounded-full border ${borderColor} bg-transparent flex items-center justify-center`}
+              onClick={() => setDarkMode((prev) => !prev)}
+            >
+              {darkMode ? <Sun className="w-5 h-5 text-yellow-300" /> : <Moon className="w-5 h-5 text-[#009FCC]" />}
+            </button>
             <Link href="/auth/login">
-              <button className="px-4 py-2 rounded bg-white text-[#009FCC] font-semibold hover:bg-white transition-colors border border-white">
+              <button className={`px-4 py-2 rounded font-semibold border ${borderColor} ${buttonBg} ${buttonHover} transition-colors`}>
                 Login
               </button>
             </Link>
@@ -88,47 +113,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
         </div>
       </header>
 
-      <main className="flex-1">
-        {/* Métricas do Dashboard Administrativo */}
-        <section className="container mx-auto px-4 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <Card className="bg-[#009FCC] border border-white shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-white">Visitas do Site</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-extrabold text-white">2,847</p>
-                <p className="text-lg text-white">+12.5% vs mês anterior</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-[#009FCC] border border-white shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-white">Contatos Realizados</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-extrabold text-white">156</p>
-                <p className="text-lg text-white">+8.2% vs mês anterior</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-[#009FCC] border border-white shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-white">Mensagens Chat</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-extrabold text-white">89</p>
-                <p className="text-lg text-white">+23.1% vs mês anterior</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-[#009FCC] border border-white shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-white">Receita Mensal</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-extrabold text-white">R$ 45.280</p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+      <main className="flex-1 pt-24">
         <section
           className="relative flex h-[600px] items-center justify-center overflow-hidden py-20 text-center"
           style={{
@@ -161,7 +146,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
           </div>
         </section>
 
-        <section id="features" className="py-20">
+        <section id="features" className="py-20" style={{ backgroundColor: '#111827' }}>
           <div className="container mx-auto px-4 text-center">
             <h2 className="mb-12 text-4xl font-bold text-[#FFFFFF]">{siteContent.features_title}</h2>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -206,7 +191,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
           </div>
         </section>
 
-        <section id="contact" className="py-20">
+        <section id="contact" className="py-20" style={{ backgroundColor: '#1F2E4F' }}>
           <div className="container mx-auto px-4 text-center">
             <h2 className="mb-8 text-4xl font-bold text-[#FFFFFF]">{siteContent.contact_section_title}</h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-300">{siteContent.contact_section_description}</p>

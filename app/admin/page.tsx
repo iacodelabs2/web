@@ -25,6 +25,7 @@ import {
 } from "lucide-react"
 import { KanbanBoard } from "@/components/kanban-board"
 import { ProjectsManager } from "@/components/projects-manager"
+import { ProjectsConfig, Project } from "@/components/projects-config"
 
 import {
   SidebarProvider,
@@ -142,6 +143,8 @@ const clients = [
 
 
 export default function AdminDashboard() {
+  // Estado para projetos realizados
+  const [realizados, setRealizados] = useState<Project[]>([]);
   const [activeTab, setActiveTab] = useState("overview")
   const [userName, setUserName] = useState("Admin") // Default name
   const router = useRouter()
@@ -190,13 +193,13 @@ export default function AdminDashboard() {
 
   return (
     <SidebarProvider>
-      <Sidebar className="bg-sidebar shadow-lg">
-        <SidebarHeader className="p-4 border-b border-sidebar-border">
-          <div className="text-xl font-bold text-sidebar-foreground">
-            <span className="text-purple-400">IA</span> Labs
+      <Sidebar className="bg-[#1F2E4F] shadow-lg border-r border-[#009FCC]">
+        <SidebarHeader className="p-4 border-b border-[#009FCC] bg-[#000000]">
+          <div className="text-xl font-bold text-[#FAFAFA]">
+            <span style={{ color: '#009FCC' }}>IA</span> Labs
           </div>
         </SidebarHeader>
-        <SidebarContent className="flex-1 overflow-y-auto p-2">
+        <SidebarContent className="flex-1 overflow-y-auto p-2 bg-[#1F2E4F]">
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton isActive={activeTab === "overview"} onClick={() => setActiveTab("overview")}>
@@ -267,6 +270,12 @@ export default function AdminDashboard() {
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
+                      <SidebarMenuSubButton onClick={() => setActiveTab("projects-config")}> 
+                        <span>Projetos Realizados</span>
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+            {/* O conteúdo de ProjectsConfig deve estar dentro do Tabs principal, não aqui */}
+                    <SidebarMenuSubItem>
                       <SidebarMenuSubButton onClick={() => setActiveTab("authentication-editor")}>
                         <span>Autenticação</span>
                       </SidebarMenuSubButton>
@@ -302,7 +311,7 @@ export default function AdminDashboard() {
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarContent>
-        <SidebarFooter className="p-4 border-t border-sidebar-border">
+        <SidebarFooter className="p-4 border-t border-[#009FCC] bg-[#000000]">
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton onClick={handleLogout} className="text-red-400 hover:text-red-300">
@@ -314,9 +323,9 @@ export default function AdminDashboard() {
         </SidebarFooter>
       </Sidebar>
 
-      <SidebarInset className="bg-background">
+      <SidebarInset className="bg-[#1F2E4F]">
         {/* Header for mobile and content area */}
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-border bg-card px-4 shadow-sm">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-[#009FCC] bg-[#000000] px-4 shadow-sm">
           <SidebarTrigger className="-ml-1 text-foreground" />
           <div className="flex-1 text-lg font-semibold text-foreground">Dashboard Administrativo</div>
           <div className="flex items-center space-x-2 text-muted-foreground">
@@ -325,20 +334,23 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <div className="p-6">
+        <div className="p-6 bg-[#1F2E4F]">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
             {/* TabsContent for each section */}
+            <TabsContent value="projects-config" className="space-y-6">
+              <ProjectsConfig projects={realizados} onChange={setRealizados} />
+            </TabsContent>
             <TabsContent value="overview" className="space-y-6">
               {/* Stats Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {dashboardStats.map((stat, index) => (
-                  <Card key={index} className="bg-card shadow-sm">
+                  <Card key={index} className="bg-[#000000] shadow-sm border border-[#009FCC] rounded-lg">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">{stat.title}</CardTitle>
+                      <CardTitle className="text-sm font-medium text-[#FAFAFA]">{stat.title}</CardTitle>
                       <stat.icon className={`h-4 w-4 ${stat.color}`} />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                      <div className="text-2xl font-bold text-[#009FCC]">{stat.value}</div>
                       <p className="text-xs text-green-400 flex items-center">
                         <TrendingUp className="h-3 w-3 mr-1" />
                         {stat.change} vs mês anterior
@@ -350,31 +362,31 @@ export default function AdminDashboard() {
 
               {/* Recent Activity */}
               <div className="grid lg:grid-cols-2 gap-6">
-                <Card className="bg-card shadow-sm">
+                <Card className="bg-[#000000] shadow-sm border border-[#009FCC] rounded-lg">
                   <CardHeader>
-                    <CardTitle className="text-foreground">Contatos Recentes</CardTitle>
-                    <CardDescription className="text-muted-foreground">Últimas solicitações recebidas</CardDescription>
+                    <CardTitle className="text-[#FAFAFA]">Contatos Recentes</CardTitle>
+                    <CardDescription className="text-[#009FCC]">Últimas solicitações recebidas</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {recentContacts.map((contact) => (
                         <div
                           key={contact.id}
-                          className="flex items-center justify-between p-3 bg-muted rounded-lg border border-border"
+                          className="flex items-center justify-between p-3 bg-[#1F2E4F] rounded-lg border border-[#009FCC]"
                         >
                           <div>
-                            <p className="font-medium text-foreground">{contact.name}</p>
-                            <p className="text-sm text-muted-foreground">{contact.email}</p>
-                            <p className="text-xs text-muted-foreground">{contact.project}</p>
+                            <p className="font-medium text-[#FAFAFA]">{contact.name}</p>
+                            <p className="text-sm text-[#009FCC]">{contact.email}</p>
+                            <p className="text-xs text-[#009FCC]">{contact.project}</p>
                           </div>
                           <div className="text-right">
                             <Badge
                               variant={contact.status === "Novo" ? "default" : "secondary"}
-                              className="bg-primary text-primary-foreground"
+                              className="bg-[#009FCC] text-[#FAFAFA]"
                             >
                               {contact.status}
                             </Badge>
-                            <p className="text-xs text-muted-foreground mt-1">{contact.date}</p>
+                            <p className="text-xs text-[#009FCC] mt-1">{contact.date}</p>
                           </div>
                         </div>
                       ))}
@@ -382,28 +394,28 @@ export default function AdminDashboard() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card shadow-sm">
+                <Card className="bg-[#000000] shadow-sm border border-[#009FCC] rounded-lg">
                   <CardHeader>
-                    <CardTitle className="text-foreground">Métricas do Mês</CardTitle>
-                    <CardDescription className="text-muted-foreground">Performance atual</CardDescription>
+                    <CardTitle className="text-[#FAFAFA]">Métricas do Mês</CardTitle>
+                    <CardDescription className="text-[#009FCC]">Performance atual</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-foreground">Taxa de Conversão</span>
-                        <span className="font-medium text-foreground">5.8%</span>
+                        <span className="text-sm text-[#FAFAFA]">Taxa de Conversão</span>
+                        <span className="font-medium text-[#009FCC]">5.8%</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-foreground">Tempo Médio no Site</span>
-                        <span className="font-medium text-foreground">3m 42s</span>
+                        <span className="text-sm text-[#FAFAFA]">Tempo Médio no Site</span>
+                        <span className="font-medium text-[#009FCC]">3m 42s</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-foreground">Projetos Ativos</span>
-                        <span className="font-medium text-foreground">12</span>
+                        <span className="text-sm text-[#FAFAFA]">Projetos Ativos</span>
+                        <span className="font-medium text-[#009FCC]">12</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-foreground">Satisfação do Cliente</span>
-                        <span className="font-medium text-foreground">4.9/5</span>
+                        <span className="text-sm text-[#FAFAFA]">Satisfação do Cliente</span>
+                        <span className="font-medium text-[#009FCC]">4.9/5</span>
                       </div>
                     </div>
                   </CardContent>

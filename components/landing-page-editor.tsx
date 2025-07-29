@@ -6,6 +6,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -189,243 +190,268 @@ export function LandingPageEditor() {
   }
 
   return (
-    <Card className="bg-card shadow-sm">
+    <Card className="rounded-lg border text-card-foreground bg-card shadow-sm">
       <CardHeader>
         <CardTitle className="text-foreground">Editor da Landing Page</CardTitle>
         <CardDescription className="text-muted-foreground">
           Personalize textos, cores e imagens da sua página inicial.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="grid gap-4">
-          <Label htmlFor="header_logo_text">Texto do Logo no Cabeçalho</Label>
-          <Input
-            id="header_logo_text"
-            value={siteContent.header_logo_text}
-            onChange={(e) => setSiteContent({ ...siteContent, header_logo_text: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="hero_title">Título do Hero</Label>
-          <Input
-            id="hero_title"
-            value={siteContent.hero_title}
-            onChange={(e) => setSiteContent({ ...siteContent, hero_title: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="hero_subtitle">Subtítulo do Hero</Label>
-          <Textarea
-            id="hero_subtitle"
-            value={siteContent.hero_subtitle}
-            onChange={(e) => setSiteContent({ ...siteContent, hero_subtitle: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="hero_button1_text">Texto do Botão 1 do Hero</Label>
-          <Input
-            id="hero_button1_text"
-            value={siteContent.hero_button1_text}
-            onChange={(e) => setSiteContent({ ...siteContent, hero_button1_text: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="hero_button2_text">Texto do Botão 2 do Hero</Label>
-          <Input
-            id="hero_button2_text"
-            value={siteContent.hero_button2_text}
-            onChange={(e) => setSiteContent({ ...siteContent, hero_button2_text: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-
-        <div className="grid gap-4">
-          <Label htmlFor="hero_gradient_from">Cor de Início do Gradiente do Hero (Hex)</Label>
-          <Input
-            id="hero_gradient_from"
-            type="color"
-            value={siteContent.hero_gradient_from}
-            onChange={(e) => setSiteContent({ ...siteContent, hero_gradient_from: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="hero_gradient_to">Cor Final do Gradiente do Hero (Hex)</Label>
-          <Input
-            id="hero_gradient_to"
-            type="color"
-            value={siteContent.hero_gradient_to}
-            onChange={(e) => setSiteContent({ ...siteContent, hero_gradient_to: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="hero_text_color">Cor do Texto do Hero (Hex)</Label>
-          <Input
-            id="hero_text_color"
-            type="color"
-            value={siteContent.hero_text_color}
-            onChange={(e) => setSiteContent({ ...siteContent, hero_text_color: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-
-        <div className="grid gap-4">
-          <Label htmlFor="hero_image">Imagem de Fundo do Hero</Label>
-          <div className="flex items-center gap-4">
-            <Input id="hero_image" type="file" onChange={handleImageUpload} className="flex-1" />
-            {siteContent.hero_image_url && (
-              <img
-                src={siteContent.hero_image_url || "/placeholder.svg"}
-                alt="Hero Background Preview"
-                className="w-24 h-16 object-cover rounded-md border border-border"
-              />
-            )}
-          </div>
-          <CardDescription className="text-muted-foreground flex items-center gap-1">
-            <ImageIcon className="h-4 w-4" />
-            Faça upload de uma nova imagem para o fundo da seção Hero.
-          </CardDescription>
-        </div>
-
-        <div className="grid gap-4">
-          <Label htmlFor="features_title">Título da Seção de Recursos</Label>
-          <Input
-            id="features_title"
-            value={siteContent.features_title}
-            onChange={(e) => setSiteContent({ ...siteContent, features_title: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="feature1_title">Título do Recurso 1</Label>
-          <Input
-            id="feature1_title"
-            value={siteContent.feature1_title}
-            onChange={(e) => setSiteContent({ ...siteContent, feature1_title: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="feature1_description">Descrição do Recurso 1</Label>
-          <Textarea
-            id="feature1_description"
-            value={siteContent.feature1_description}
-            onChange={(e) => setSiteContent({ ...siteContent, feature1_description: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="feature2_title">Título do Recurso 2</Label>
-          <Input
-            id="feature2_title"
-            value={siteContent.feature2_title}
-            onChange={(e) => setSiteContent({ ...siteContent, feature2_title: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="feature2_description">Descrição do Recurso 2</Label>
-          <Textarea
-            id="feature2_description"
-            value={siteContent.feature2_description}
-            onChange={(e) => setSiteContent({ ...siteContent, feature2_description: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="feature3_title">Título do Recurso 3</Label>
-          <Input
-            id="feature3_title"
-            value={siteContent.feature3_title}
-            onChange={(e) => setSiteContent({ ...siteContent, feature3_title: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="feature3_description">Descrição do Recurso 3</Label>
-          <Textarea
-            id="feature3_description"
-            value={siteContent.feature3_description}
-            onChange={(e) => setSiteContent({ ...siteContent, feature3_description: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-
-        <div className="grid gap-4">
-          <Label htmlFor="about_section_title">Título da Seção Sobre Nós</Label>
-          <Input
-            id="about_section_title"
-            value={siteContent.about_section_title}
-            onChange={(e) => setSiteContent({ ...siteContent, about_section_title: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="about_us_content">Conteúdo Sobre Nós</Label>
-          <Textarea
-            id="about_us_content"
-            value={siteContent.about_us_content}
-            onChange={(e) => setSiteContent({ ...siteContent, about_us_content: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="contact_section_title">Título da Seção de Contato</Label>
-          <Input
-            id="contact_section_title"
-            value={siteContent.contact_section_title}
-            onChange={(e) => setSiteContent({ ...siteContent, contact_section_title: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="contact_section_description">Descrição da Seção de Contato</Label>
-          <Textarea
-            id="contact_section_description"
-            value={siteContent.contact_section_description}
-            onChange={(e) => setSiteContent({ ...siteContent, contact_section_description: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="contact_button_text">Texto do Botão de Contato</Label>
-          <Input
-            id="contact_button_text"
-            value={siteContent.contact_button_text}
-            onChange={(e) => setSiteContent({ ...siteContent, contact_button_text: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="contact_email">E-mail de Contato</Label>
-          <Input
-            id="contact_email"
-            type="email"
-            value={siteContent.contact_email}
-            onChange={(e) => setSiteContent({ ...siteContent, contact_email: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="footer_text">Texto do Rodapé</Label>
-          <Input
-            id="footer_text"
-            value={siteContent.footer_text}
-            onChange={(e) => setSiteContent({ ...siteContent, footer_text: e.target.value })}
-            className="bg-input border-border text-foreground"
-          />
-        </div>
-
+      <CardContent className="space-y-6" style={{paddingLeft: 20, paddingRight: 20}}>
+        <Accordion type="multiple" className="w-full">
+          <AccordionItem value="header">
+            <AccordionTrigger className="hover:!bg-[#009FCC] hover:!text-white rounded-md px-5">Logo e Cabeçalho</AccordionTrigger>
+            <AccordionContent className="!bg-[#111827] rounded-md p-4" style={{paddingLeft: 20, paddingRight: 20}}>
+              <div className="grid gap-4 pl-3">
+                <Label htmlFor="header_logo_text">Texto do Logo no Cabeçalho</Label>
+                <Input
+                  id="header_logo_text"
+                  value={siteContent.header_logo_text}
+                  onChange={(e) => setSiteContent({ ...siteContent, header_logo_text: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="hero">
+            <AccordionTrigger className="hover:!bg-[#009FCC] hover:!text-white rounded-md px-5">Hero</AccordionTrigger>
+            <AccordionContent className="!bg-[#111827] rounded-md p-4" style={{paddingLeft: 20, paddingRight: 20}}>
+              <div className="grid gap-4 pl-3">
+                <Label htmlFor="hero_title">Título do Hero</Label>
+                <Input
+                  id="hero_title"
+                  value={siteContent.hero_title}
+                  onChange={(e) => setSiteContent({ ...siteContent, hero_title: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4 pl-3">
+                <Label htmlFor="hero_subtitle">Subtítulo do Hero</Label>
+                <Textarea
+                  id="hero_subtitle"
+                  value={siteContent.hero_subtitle}
+                  onChange={(e) => setSiteContent({ ...siteContent, hero_subtitle: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4 pl-3">
+                <Label htmlFor="hero_button1_text">Texto do Botão 1 do Hero</Label>
+                <Input
+                  id="hero_button1_text"
+                  value={siteContent.hero_button1_text}
+                  onChange={(e) => setSiteContent({ ...siteContent, hero_button1_text: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4 pl-3">
+                <Label htmlFor="hero_button2_text">Texto do Botão 2 do Hero</Label>
+                <Input
+                  id="hero_button2_text"
+                  value={siteContent.hero_button2_text}
+                  onChange={(e) => setSiteContent({ ...siteContent, hero_button2_text: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="hero_gradient_from">Cor de Início do Gradiente do Hero (Hex)</Label>
+                <Input
+                  id="hero_gradient_from"
+                  type="color"
+                  value={siteContent.hero_gradient_from}
+                  onChange={(e) => setSiteContent({ ...siteContent, hero_gradient_from: e.target.value })}
+                  className="w-full h-10 p-1 border-border rounded-md"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="hero_gradient_to">Cor Final do Gradiente do Hero (Hex)</Label>
+                <Input
+                  id="hero_gradient_to"
+                  type="color"
+                  value={siteContent.hero_gradient_to}
+                  onChange={(e) => setSiteContent({ ...siteContent, hero_gradient_to: e.target.value })}
+                  className="w-full h-10 p-1 border-border rounded-md"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="hero_text_color">Cor do Texto do Hero (Hex)</Label>
+                <Input
+                  id="hero_text_color"
+                  type="color"
+                  value={siteContent.hero_text_color}
+                  onChange={(e) => setSiteContent({ ...siteContent, hero_text_color: e.target.value })}
+                  className="w-full h-10 p-1 border-border rounded-md"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="hero_image">Imagem de Fundo do Hero</Label>
+                <div className="flex items-center gap-4">
+                  <Input id="hero_image" type="file" onChange={handleImageUpload} className="flex-1" />
+                  {siteContent.hero_image_url && (
+                    <img
+                      src={siteContent.hero_image_url || "/placeholder.svg"}
+                      alt="Hero Background Preview"
+                      className="w-24 h-16 object-cover rounded-md border border-border"
+                    />
+                  )}
+                </div>
+                <CardDescription className="text-muted-foreground flex items-center gap-1">
+                  <ImageIcon className="h-4 w-4" />
+                  Faça upload de uma nova imagem para o fundo da seção Hero.
+                </CardDescription>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="features">
+            <AccordionTrigger className="hover:!bg-[#009FCC] hover:!text-white rounded-md px-5">Recursos</AccordionTrigger>
+            <AccordionContent className="!bg-[#111827] rounded-md p-4" style={{paddingLeft: 20, paddingRight: 20}}>
+              <div className="grid gap-4">
+                <Label htmlFor="features_title">Título da Seção de Recursos</Label>
+                <Input
+                  id="features_title"
+                  value={siteContent.features_title}
+                  onChange={(e) => setSiteContent({ ...siteContent, features_title: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="feature1_title">Título do Recurso 1</Label>
+                <Input
+                  id="feature1_title"
+                  value={siteContent.feature1_title}
+                  onChange={(e) => setSiteContent({ ...siteContent, feature1_title: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="feature1_description">Descrição do Recurso 1</Label>
+                <Textarea
+                  id="feature1_description"
+                  value={siteContent.feature1_description}
+                  onChange={(e) => setSiteContent({ ...siteContent, feature1_description: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="feature2_title">Título do Recurso 2</Label>
+                <Input
+                  id="feature2_title"
+                  value={siteContent.feature2_title}
+                  onChange={(e) => setSiteContent({ ...siteContent, feature2_title: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="feature2_description">Descrição do Recurso 2</Label>
+                <Textarea
+                  id="feature2_description"
+                  value={siteContent.feature2_description}
+                  onChange={(e) => setSiteContent({ ...siteContent, feature2_description: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="feature3_title">Título do Recurso 3</Label>
+                <Input
+                  id="feature3_title"
+                  value={siteContent.feature3_title}
+                  onChange={(e) => setSiteContent({ ...siteContent, feature3_title: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="feature3_description">Descrição do Recurso 3</Label>
+                <Textarea
+                  id="feature3_description"
+                  value={siteContent.feature3_description}
+                  onChange={(e) => setSiteContent({ ...siteContent, feature3_description: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="about">
+            <AccordionTrigger className="hover:!bg-[#009FCC] hover:!text-white rounded-md px-5">Sobre Nós</AccordionTrigger>
+            <AccordionContent className="!bg-[#111827] rounded-md p-4" style={{paddingLeft: 20, paddingRight: 20}}>
+              <div className="grid gap-4">
+                <Label htmlFor="about_section_title">Título da Seção Sobre Nós</Label>
+                <Input
+                  id="about_section_title"
+                  value={siteContent.about_section_title}
+                  onChange={(e) => setSiteContent({ ...siteContent, about_section_title: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="about_us_content">Conteúdo Sobre Nós</Label>
+                <Textarea
+                  id="about_us_content"
+                  value={siteContent.about_us_content}
+                  onChange={(e) => setSiteContent({ ...siteContent, about_us_content: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="contact">
+            <AccordionTrigger className="hover:!bg-[#009FCC] hover:!text-white rounded-md px-5">Contato</AccordionTrigger>
+            <AccordionContent className="!bg-[#111827] rounded-md p-4" style={{paddingLeft: 20, paddingRight: 20}}>
+              <div className="grid gap-4">
+                <Label htmlFor="contact_section_title">Título da Seção de Contato</Label>
+                <Input
+                  id="contact_section_title"
+                  value={siteContent.contact_section_title}
+                  onChange={(e) => setSiteContent({ ...siteContent, contact_section_title: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="contact_section_description">Descrição da Seção de Contato</Label>
+                <Textarea
+                  id="contact_section_description"
+                  value={siteContent.contact_section_description}
+                  onChange={(e) => setSiteContent({ ...siteContent, contact_section_description: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="contact_button_text">Texto do Botão de Contato</Label>
+                <Input
+                  id="contact_button_text"
+                  value={siteContent.contact_button_text}
+                  onChange={(e) => setSiteContent({ ...siteContent, contact_button_text: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+              <div className="grid gap-4">
+                <Label htmlFor="contact_email">E-mail de Contato</Label>
+                <Input
+                  id="contact_email"
+                  type="email"
+                  value={siteContent.contact_email}
+                  onChange={(e) => setSiteContent({ ...siteContent, contact_email: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="footer">
+            <AccordionTrigger className="hover:!bg-[#009FCC] hover:!text-white rounded-md px-5">Rodapé</AccordionTrigger>
+            <AccordionContent>
+              <div className="grid gap-4">
+                <Label htmlFor="footer_text">Texto do Rodapé</Label>
+                <Input
+                  id="footer_text"
+                  value={siteContent.footer_text}
+                  onChange={(e) => setSiteContent({ ...siteContent, footer_text: e.target.value })}
+                  className="bg-input border-border text-foreground"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
         {message && <p className="text-sm text-green-600">{message}</p>}
         {error && <p className="text-sm text-red-600">{error}</p>}
-
-        <div className="flex flex-wrap gap-4">
-          {" "}
+        <div className="flex flex-wrap gap-4" style={{paddingLeft: 20, paddingRight: 20, background: '#111827', borderRadius: 8}}>
           {/* Use flex-wrap para botões em telas menores */}
           <Button
             onClick={handleSave}
