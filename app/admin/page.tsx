@@ -262,13 +262,7 @@ export default function AdminDashboard() {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton onClick={() => setActiveTab("projects")}>
-                        <FolderOpen className="h-4 w-4" />
-                        <span>Projetos do Site</span>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton onClick={() => setActiveTab("landing-page-editor")}>
+                      <SidebarMenuSubButton onClick={() => setActiveTab("landing-page-editor")}> 
                         <span>Landing Page</span>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>

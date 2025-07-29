@@ -19,7 +19,7 @@ type Project = {
   endDate?: string
 }
 
-export function ProjectsManager() {
+export function ProjectsManager({ readOnly = false }: { readOnly?: boolean } = {}) {
   const [projects, setProjects] = useState<Project[]>([
     {
       id: "1",
@@ -109,55 +109,57 @@ export function ProjectsManager() {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-gray-900 text-gray-50">
-        <CardHeader>
-          <CardTitle>Adicionar Novo Projeto</CardTitle>
-        </CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-2">
-          <Input
-            placeholder="Nome do Projeto"
-            value={newProject.name}
-            onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
-          />
-          <Input
-            placeholder="Cliente"
-            value={newProject.client}
-            onChange={(e) => setNewProject({ ...newProject, client: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
-          />
-          <Input
-            type="date"
-            placeholder="Data de Início"
-            value={newProject.startDate}
-            onChange={(e) => setNewProject({ ...newProject, startDate: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
-          />
-          <Select
-            value={newProject.status}
-            onValueChange={(value: Project["status"]) => setNewProject({ ...newProject, status: value })}
-          >
-            <SelectTrigger className="bg-gray-800 border-gray-700 text-gray-50">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent className="bg-gray-800 text-gray-50">
-              <SelectItem value="planning">Planejamento</SelectItem>
-              <SelectItem value="in-progress">Em Progresso</SelectItem>
-              <SelectItem value="completed">Concluído</SelectItem>
-              <SelectItem value="on-hold">Em Espera</SelectItem>
-            </SelectContent>
-          </Select>
-          <Textarea
-            placeholder="Descrição do Projeto"
-            value={newProject.description}
-            onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-            className="col-span-full bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
-          />
-          <Button onClick={handleAddProject} className="col-span-full bg-purple-600 hover:bg-purple-700">
-            <Plus className="mr-2 h-4 w-4" /> Adicionar Projeto
-          </Button>
-        </CardContent>
-      </Card>
+      {!readOnly && (
+        <Card className="bg-gray-900 text-gray-50">
+          <CardHeader>
+            <CardTitle>Adicionar Novo Projeto</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-4 md:grid-cols-2">
+            <Input
+              placeholder="Nome do Projeto"
+              value={newProject.name}
+              onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
+              className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
+            />
+            <Input
+              placeholder="Cliente"
+              value={newProject.client}
+              onChange={(e) => setNewProject({ ...newProject, client: e.target.value })}
+              className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
+            />
+            <Input
+              type="date"
+              placeholder="Data de Início"
+              value={newProject.startDate}
+              onChange={(e) => setNewProject({ ...newProject, startDate: e.target.value })}
+              className="bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
+            />
+            <Select
+              value={newProject.status}
+              onValueChange={(value: Project["status"]) => setNewProject({ ...newProject, status: value })}
+            >
+              <SelectTrigger className="bg-gray-800 border-gray-700 text-gray-50">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-800 text-gray-50">
+                <SelectItem value="planning">Planejamento</SelectItem>
+                <SelectItem value="in-progress">Em Progresso</SelectItem>
+                <SelectItem value="completed">Concluído</SelectItem>
+                <SelectItem value="on-hold">Em Espera</SelectItem>
+              </SelectContent>
+            </Select>
+            <Textarea
+              placeholder="Descrição do Projeto"
+              value={newProject.description}
+              onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
+              className="col-span-full bg-gray-800 border-gray-700 text-gray-50 placeholder:text-gray-400"
+            />
+            <Button onClick={handleAddProject} className="col-span-full bg-purple-600 hover:bg-purple-700">
+              <Plus className="mr-2 h-4 w-4" /> Adicionar Projeto
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       <Card className="bg-gray-900 text-gray-50">
         <CardHeader>
@@ -178,7 +180,8 @@ export function ProjectsManager() {
           ) : (
             filteredProjects.map((project) => (
               <Card key={project.id} className="bg-gray-800 border-gray-700 p-4 shadow-md">
-                {editingProject?.id === project.id ? (
+                {/* Modo edição só se não for readOnly */}
+                {!readOnly && editingProject?.id === project.id ? (
                   <div className="space-y-2">
                     <Input
                       value={editingProject.name}
@@ -233,28 +236,33 @@ export function ProjectsManager() {
                     <p className="text-sm text-gray-300">Início: {project.startDate}</p>
                     {project.endDate && <p className="text-sm text-gray-300">Fim: {project.endDate}</p>}
                     <p className="text-sm text-gray-300">{project.description}</p>
-                    <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="icon" onClick={() => handleEditProject(project)}>
-                        <Edit className="h-4 w-4 text-blue-400" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDeleteProject(project.id)}>
-                        <Trash2 className="h-4 w-4 text-red-400" />
-                      </Button>
-                    </div>
-                    <Select
-                      value={project.status}
-                      onValueChange={(value: Project["status"]) => handleUpdateProjectStatus(project.id, value)}
-                    >
-                      <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-gray-50">
-                        <SelectValue placeholder="Mudar Status" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-800 text-gray-50">
-                        <SelectItem value="planning">Planejamento</SelectItem>
-                        <SelectItem value="in-progress">Em Progresso</SelectItem>
-                        <SelectItem value="completed">Concluído</SelectItem>
-                        <SelectItem value="on-hold">Em Espera</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    {/* Botões de editar/excluir e select de status só se não for readOnly */}
+                    {!readOnly && (
+                      <div className="flex justify-end gap-2">
+                        <Button variant="ghost" size="icon" onClick={() => handleEditProject(project)}>
+                          <Edit className="h-4 w-4 text-blue-400" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleDeleteProject(project.id)}>
+                          <Trash2 className="h-4 w-4 text-red-400" />
+                        </Button>
+                      </div>
+                    )}
+                    {!readOnly && (
+                      <Select
+                        value={project.status}
+                        onValueChange={(value: Project["status"]) => handleUpdateProjectStatus(project.id, value)}
+                      >
+                        <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-gray-50">
+                          <SelectValue placeholder="Mudar Status" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-800 text-gray-50">
+                          <SelectItem value="planning">Planejamento</SelectItem>
+                          <SelectItem value="in-progress">Em Progresso</SelectItem>
+                          <SelectItem value="completed">Concluído</SelectItem>
+                          <SelectItem value="on-hold">Em Espera</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
                   </div>
                 )}
               </Card>
