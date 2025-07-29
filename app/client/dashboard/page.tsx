@@ -120,7 +120,7 @@ export default function ClientDashboard() {
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut()
-    if (error) {
+            <Card className="bg-[#009FCC] shadow-sm p-6">
       console.error("Error logging out:", error.message)
     } else {
       router.push("/")
@@ -132,7 +132,7 @@ export default function ClientDashboard() {
       case "Em Desenvolvimento":
         return "bg-blue-600 text-white"
       case "Planejamento":
-        return "bg-yellow-600 text-white"
+                      className={`p-6 border rounded-lg ${!message.read ? "bg-accent border-accent" : "bg-muted"}`}
       case "Concluído":
         return "bg-green-600 text-white"
       case "Pausado":
@@ -142,7 +142,7 @@ export default function ClientDashboard() {
     }
   }
 
-  const getInvoiceStatusColor = (status: string) => {
+            <Card className="bg-card shadow-sm p-6">
     switch (status) {
       case "Pago":
         return "bg-green-600 text-white"
@@ -152,7 +152,7 @@ export default function ClientDashboard() {
         return "bg-red-600 text-white"
       default:
         return "bg-gray-600 text-white"
-    }
+                    <div key={invoice.id} className="p-6 border rounded-lg bg-muted">
   }
 
   return (
@@ -161,13 +161,13 @@ export default function ClientDashboard() {
         <SidebarHeader className="p-4 border-b border-sidebar-border">
           <div className="text-xl font-bold text-sidebar-foreground">
             <span className="text-[#009FCC]">IA</span> Labs
-          </div>
+            <Card className="bg-card shadow-sm p-6">
         </SidebarHeader>
         <SidebarContent className="flex-1 overflow-y-auto p-2">
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton isActive={activeTab === "overview"} onClick={() => setActiveTab("overview")}> 
-                <LayoutDashboard className="h-4 w-4 text-purple-400" />
+                <LayoutDashboard className="h-4 w-4 text-[#009FCC]" />
                 <span>Visão Geral</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -186,6 +186,9 @@ export default function ClientDashboard() {
             <SidebarMenuItem>
               <SidebarMenuButton isActive={activeTab === "invoices"} onClick={() => setActiveTab("invoices")}> 
                 <FileText className="h-4 w-4 text-yellow-400" />
+          <div className="mt-4 text-xs text-muted-foreground text-center">
+            © 2025 IA Code Labs. Todos os direitos reservados.
+          </div>
                 <span>Faturas</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -232,12 +235,12 @@ export default function ClientDashboard() {
                   Comunicação com a equipe de desenvolvimento
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="space-y-4">
                   {clientMessages.map((message) => (
                     <div
                       key={message.id}
-                      className={`p-4 border rounded-lg ${!message.read ? "bg-accent border-accent" : "bg-muted"}`}
+                      className={`p-6 border rounded-lg ${!message.read ? "bg-accent border-accent" : "bg-muted"}`}
                     >
                       <div className="flex justify-between items-start mb-2">
                         <div>
@@ -275,10 +278,10 @@ export default function ClientDashboard() {
                   Histórico financeiro dos seus projetos
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="space-y-4">
                   {invoices.map((invoice) => (
-                    <div key={invoice.id} className="p-4 border rounded-lg bg-muted">
+                    <div key={invoice.id} className="p-6 border rounded-lg bg-muted">
                       <div className="flex justify-between items-start mb-3">
                         <div>
                           <p className="font-medium text-foreground">{invoice.number}</p>
@@ -311,7 +314,7 @@ export default function ClientDashboard() {
                           Baixar PDF
                         </Button>
                         {invoice.status === "Pendente" && (
-                          <Button size="sm" className="bg-[#009FCC] hover:bg-[#00BFFF] text-white">
+                        <Button size="sm" className="bg-[#009FCC] hover:bg-[#00BFFF] text-white">
                             Pagar Agora
                           </Button>
                         )}
@@ -330,7 +333,7 @@ export default function ClientDashboard() {
                   Gerencie seus compromissos e prazos.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="text-center py-12">
                   <CalendarDays className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-foreground">Sua agenda está vazia.</p>

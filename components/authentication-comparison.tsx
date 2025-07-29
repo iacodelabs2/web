@@ -29,7 +29,7 @@ const defaultAuthSettings = {
   register_description: "Crie sua conta IA Code Labs",
   card_bg_color: "#1F2937",
   text_color: "#F9FAFB",
-  button_bg_color: "#009FCC",
+  button_bg_color: "#9333EA",
   button_text_color: "#FFFFFF",
 }
 

@@ -23,7 +23,7 @@ import { DynamicLucideIcon } from "@/components/dynamic-lucide-icon" // Importar
 const defaultSidebarSettings = {
   background_color: "#171717", // Cor de fundo do sidebar
   text_color: "#F9FAFB", // Cor do texto padrão
-  active_bg_color: "#009FCC", // Cor de fundo do item ativo
+  active_bg_color: "#9333EA", // Cor de fundo do item ativo
   active_text_color: "#FFFFFF", // Cor do texto do item ativo
   menu_items: [
     { id: "1", label: "Visão Geral", icon: "LayoutDashboard", url: "overview" },

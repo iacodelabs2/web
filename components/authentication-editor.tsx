@@ -31,7 +31,7 @@ export function AuthenticationEditor() {
     register_description: "Crie sua conta IA Code Labs",
     card_bg_color: "#1F2937", // Cor de fundo do card no tema escuro
     text_color: "#F9FAFB", // Cor do texto no tema escuro
-    button_bg_color: "#009FCC", // Cor do botão principal
+    button_bg_color: "#9333EA", // Cor do botão principal
     button_text_color: "#FFFFFF",
   })
   const [loading, setLoading] = useState(false)
