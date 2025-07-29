@@ -456,7 +456,7 @@ export function LandingPageEditor() {
           <Button
             onClick={handleSave}
             disabled={loading}
-            className="flex-1 bg-purple-600 hover:bg-purple-700 min-w-[180px]"
+            className="flex-1 bg-[#009FCC] text-[#FAFAFA] font-medium hover:bg-[#1F2E4F] hover:text-[#009FCC] min-w-[180px] transition"
           >
             <Save className="mr-2 h-4 w-4" /> {loading ? "Salvando..." : "Salvar Alterações"}
           </Button>
@@ -464,7 +464,7 @@ export function LandingPageEditor() {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="flex-1 bg-transparent border-border text-foreground hover:bg-accent min-w-[180px]"
+                className="flex-1 bg-transparent border-border text-foreground hover:bg-[#1F2E4F] hover:text-[#009FCC] min-w-[180px] transition"
               >
                 <Eye className="mr-2 h-4 w-4" /> Visualizar Landing Page
               </Button>
@@ -485,7 +485,7 @@ export function LandingPageEditor() {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="flex-1 bg-transparent border-border text-foreground hover:bg-accent min-w-[180px]"
+                className="flex-1 bg-transparent border-border text-foreground hover:bg-[#1F2E4F] hover:text-[#009FCC] min-w-[180px] transition"
               >
                 <Eye className="mr-2 h-4 w-4" /> Visualizar Página Original
               </Button>
@@ -506,7 +506,7 @@ export function LandingPageEditor() {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="flex-1 bg-transparent border-border text-foreground hover:bg-accent min-w-[180px]"
+                className="flex-1 bg-transparent border-border text-foreground hover:bg-[#1F2E4F] hover:text-[#009FCC] min-w-[180px] transition"
               >
                 <GitCompare className="mr-2 h-4 w-4" /> Comparar
               </Button>

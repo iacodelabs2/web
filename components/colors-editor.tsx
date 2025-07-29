@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Save } from "lucide-react"
+import { Save, ChevronDown } from "lucide-react"
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
 
 export function ColorsEditor() {
   const [colorSettings, setColorSettings] = useState({
@@ -33,80 +34,88 @@ export function ColorsEditor() {
   }
 
   return (
-    <Card className="bg-card shadow-sm">
-      <CardHeader>
-        <CardTitle className="text-foreground">Personalização de Cores</CardTitle>
-        <CardDescription className="text-muted-foreground">Altere as cores principais do sistema.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="grid gap-4">
-          <Label htmlFor="primary_color">Cor Primária (Hex)</Label>
-          <Input
-            id="primary_color"
-            type="color"
-            value={colorSettings.primary_color}
-            onChange={(e) => setColorSettings({ ...colorSettings, primary_color: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="secondary_color">Cor Secundária (Hex)</Label>
-          <Input
-            id="secondary_color"
-            type="color"
-            value={colorSettings.secondary_color}
-            onChange={(e) => setColorSettings({ ...colorSettings, secondary_color: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="accent_color">Cor de Destaque (Hex)</Label>
-          <Input
-            id="accent_color"
-            type="color"
-            value={colorSettings.accent_color}
-            onChange={(e) => setColorSettings({ ...colorSettings, accent_color: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="background_color">Cor de Fundo (Hex)</Label>
-          <Input
-            id="background_color"
-            type="color"
-            value={colorSettings.background_color}
-            onChange={(e) => setColorSettings({ ...colorSettings, background_color: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="foreground_color">Cor do Foreground (Hex)</Label>
-          <Input
-            id="foreground_color"
-            type="color"
-            value={colorSettings.foreground_color}
-            onChange={(e) => setColorSettings({ ...colorSettings, foreground_color: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-        <div className="grid gap-4">
-          <Label htmlFor="border_color">Cor da Borda (Hex)</Label>
-          <Input
-            id="border_color"
-            type="color"
-            value={colorSettings.border_color}
-            onChange={(e) => setColorSettings({ ...colorSettings, border_color: e.target.value })}
-            className="w-full h-10 p-1 border-border rounded-md"
-          />
-        </div>
-
-        {message && <p className="text-sm text-green-600">{message}</p>}
-        {error && <p className="text-sm text-red-600">{error}</p>}
-
-        <Button onClick={handleSave} disabled={loading} className="w-full bg-purple-600 hover:bg-purple-700">
-          <Save className="mr-2 h-4 w-4" /> {loading ? "Salvando..." : "Salvar Alterações"}
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-[#FAFAFA] mb-2">Personalização de Cores</h2>
+      <p className="text-[#FAFAFA] mb-4">Altere as cores principais do sistema.</p>
+      <Collapsible defaultOpen className="bg-[#000000] rounded-lg shadow-sm">
+        <CollapsibleTrigger className="flex items-center w-full px-4 py-3 text-lg font-semibold text-[#009FCC] hover:bg-[#1F2E4F] rounded-t-lg transition cursor-pointer">
+          <ChevronDown className="mr-2 h-5 w-5" /> Cores Principais
+        </CollapsibleTrigger>
+        <CollapsibleContent className="p-4 space-y-4">
+          <div className="grid gap-4">
+            <Label htmlFor="primary_color">Cor Primária (Hex)</Label>
+            <Input
+              id="primary_color"
+              type="color"
+              value={colorSettings.primary_color}
+              onChange={(e) => setColorSettings({ ...colorSettings, primary_color: e.target.value })}
+              className="w-full h-10 p-1 border-border rounded-md"
+            />
+          </div>
+          <div className="grid gap-4">
+            <Label htmlFor="secondary_color">Cor Secundária (Hex)</Label>
+            <Input
+              id="secondary_color"
+              type="color"
+              value={colorSettings.secondary_color}
+              onChange={(e) => setColorSettings({ ...colorSettings, secondary_color: e.target.value })}
+              className="w-full h-10 p-1 border-border rounded-md"
+            />
+          </div>
+          <div className="grid gap-4">
+            <Label htmlFor="accent_color">Cor de Destaque (Hex)</Label>
+            <Input
+              id="accent_color"
+              type="color"
+              value={colorSettings.accent_color}
+              onChange={(e) => setColorSettings({ ...colorSettings, accent_color: e.target.value })}
+              className="w-full h-10 p-1 border-border rounded-md"
+            />
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+      <Collapsible defaultOpen className="bg-[#000000] rounded-lg shadow-sm">
+        <CollapsibleTrigger className="flex items-center w-full px-4 py-3 text-lg font-semibold text-[#009FCC] hover:bg-[#1F2E4F] rounded-t-lg transition cursor-pointer">
+          <ChevronDown className="mr-2 h-5 w-5" /> Cores de Fundo e Bordas
+        </CollapsibleTrigger>
+        <CollapsibleContent className="p-4 space-y-4">
+          <div className="grid gap-4">
+            <Label htmlFor="background_color">Cor de Fundo (Hex)</Label>
+            <Input
+              id="background_color"
+              type="color"
+              value={colorSettings.background_color}
+              onChange={(e) => setColorSettings({ ...colorSettings, background_color: e.target.value })}
+              className="w-full h-10 p-1 border-border rounded-md"
+            />
+          </div>
+          <div className="grid gap-4">
+            <Label htmlFor="foreground_color">Cor do Foreground (Hex)</Label>
+            <Input
+              id="foreground_color"
+              type="color"
+              value={colorSettings.foreground_color}
+              onChange={(e) => setColorSettings({ ...colorSettings, foreground_color: e.target.value })}
+              className="w-full h-10 p-1 border-border rounded-md"
+            />
+          </div>
+          <div className="grid gap-4">
+            <Label htmlFor="border_color">Cor da Borda (Hex)</Label>
+            <Input
+              id="border_color"
+              type="color"
+              value={colorSettings.border_color}
+              onChange={(e) => setColorSettings({ ...colorSettings, border_color: e.target.value })}
+              className="w-full h-10 p-1 border-border rounded-md"
+            />
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+      {message && <p className="text-sm text-green-600">{message}</p>}
+      {error && <p className="text-sm text-red-600">{error}</p>}
+      <Button onClick={handleSave} disabled={loading} className="w-full bg-purple-600 hover:bg-purple-700 mt-4">
+        <Save className="mr-2 h-4 w-4" /> {loading ? "Salvando..." : "Salvar Alterações"}
+      </Button>
+    </div>
   )
 }

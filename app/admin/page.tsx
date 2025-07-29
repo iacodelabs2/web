@@ -143,6 +143,9 @@ const clients = [
 
 
 export default function AdminDashboard() {
+  // Estado para filtros de data
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   // Estado para projetos realizados
   const [realizados, setRealizados] = useState<Project[]>([]);
   const [activeTab, setActiveTab] = useState("overview")
@@ -341,6 +344,56 @@ export default function AdminDashboard() {
               <ProjectsConfig projects={realizados} onChange={setRealizados} />
             </TabsContent>
             <TabsContent value="overview" className="space-y-6">
+              {/* Filtros de datas */}
+              <div className="flex flex-col md:flex-row md:items-end gap-4 mb-4">
+                <div className="flex flex-col md:flex-row gap-2">
+                  <div>
+                    <label
+                      htmlFor="start-date"
+                      className="block text-xs text-[#FAFAFA] mb-1 cursor-pointer"
+                      onClick={() => {
+                        const input = document.getElementById('start-date');
+                        if (input) input.focus();
+                      }}
+                    >
+                      Data Inicial
+                    </label>
+                    <input
+                      id="start-date"
+                      type="date"
+                      className="bg-[#1F2E4F] text-[#FAFAFA] rounded px-2 py-1 outline-none border-none"
+                      value={startDate}
+                      onChange={e => setStartDate(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="end-date"
+                      className="block text-xs text-[#FAFAFA] mb-1 cursor-pointer"
+                      onClick={() => {
+                        const input = document.getElementById('end-date');
+                        if (input) input.focus();
+                      }}
+                    >
+                      Data Final
+                    </label>
+                    <input
+                      id="end-date"
+                      type="date"
+                      className="bg-[#1F2E4F] text-[#FAFAFA] rounded px-2 py-1 outline-none border-none"
+                      value={endDate}
+                      onChange={e => setEndDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="bg-[#009FCC] text-[#FAFAFA] rounded px-4 py-2 font-medium hover:bg-[#1F2E4F] transition"
+                  onClick={() => { setStartDate(""); setEndDate(""); }}
+                >
+                  Limpar Filtros
+                </button>
+              </div>
               {/* Stats Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {dashboardStats.map((stat, index) => (
@@ -350,7 +403,7 @@ export default function AdminDashboard() {
                       <stat.icon className={`h-4 w-4 ${stat.color}`} />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-[#009FCC]">{stat.value}</div>
+                      <div className="text-2xl font-bold text-[#FAFAFA]">{stat.value}</div>
                       <p className="text-xs text-green-400 flex items-center">
                         <TrendingUp className="h-3 w-3 mr-1" />
                         {stat.change} vs mês anterior
@@ -365,7 +418,7 @@ export default function AdminDashboard() {
                 <Card className="bg-[#000000] shadow-sm rounded-lg">
                   <CardHeader>
                     <CardTitle className="text-[#FAFAFA]">Contatos Recentes</CardTitle>
-                    <CardDescription className="text-[#009FCC]">Últimas solicitações recebidas</CardDescription>
+                    <CardDescription className="text-[#FAFAFA]">Últimas solicitações recebidas</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -376,8 +429,8 @@ export default function AdminDashboard() {
                         >
                           <div>
                             <p className="font-medium text-[#FAFAFA]">{contact.name}</p>
-                            <p className="text-sm text-[#009FCC]">{contact.email}</p>
-                            <p className="text-xs text-[#009FCC]">{contact.project}</p>
+                            <p className="text-sm text-[#FAFAFA]">{contact.email}</p>
+                            <p className="text-xs text-[#FAFAFA]">{contact.project}</p>
                           </div>
                           <div className="text-right">
                             <Badge
@@ -386,7 +439,7 @@ export default function AdminDashboard() {
                             >
                               {contact.status}
                             </Badge>
-                            <p className="text-xs text-[#009FCC] mt-1">{contact.date}</p>
+                            <p className="text-xs text-[#FAFAFA] mt-1">{contact.date}</p>
                           </div>
                         </div>
                       ))}
@@ -397,7 +450,7 @@ export default function AdminDashboard() {
                 <Card className="bg-[#000000] shadow-sm rounded-lg">
                   <CardHeader>
                     <CardTitle className="text-[#FAFAFA]">Métricas do Mês</CardTitle>
-                    <CardDescription className="text-[#009FCC]">Performance atual</CardDescription>
+                    <CardDescription className="text-[#FAFAFA]">Performance atual</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -428,7 +481,7 @@ export default function AdminDashboard() {
               <Card className="bg-[#000000] shadow-sm rounded-lg">
                 <CardHeader>
                   <CardTitle className="text-[#FAFAFA]">Gerenciamento de Contatos</CardTitle>
-                  <CardDescription className="text-[#009FCC]">
+                  <CardDescription className="text-[#FAFAFA]">
                     Todos os contatos e solicitações de orçamento
                   </CardDescription>
                 </CardHeader>
@@ -441,8 +494,8 @@ export default function AdminDashboard() {
                       >
                         <div>
                           <p className="font-medium text-[#FAFAFA]">{contact.name}</p>
-                          <p className="text-sm text-[#009FCC]">{contact.email}</p>
-                          <p className="text-xs text-[#009FCC]">{contact.project}</p>
+                          <p className="text-sm text-[#FAFAFA]">{contact.email}</p>
+                          <p className="text-xs text-[#FAFAFA]">{contact.project}</p>
                         </div>
                         <div className="text-right">
                           <Badge
@@ -464,7 +517,7 @@ export default function AdminDashboard() {
               <Card className="bg-[#000000] shadow-sm rounded-lg">
                 <CardHeader>
                   <CardTitle className="text-[#FAFAFA]">Chat</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Converse com seus clientes em tempo real</CardDescription>
+                  <CardDescription className="text-[#FAFAFA]">Converse com seus clientes em tempo real</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="p-2 bg-[#1F2E4F] rounded-lg">
@@ -483,7 +536,7 @@ export default function AdminDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-3xl font-bold text-green-400">R$ 245.680</div>
-                    <p className="text-sm text-[#009FCC]">+18.2% vs mês anterior</p>
+                    <p className="text-sm text-[#FAFAFA]">+18.2% vs mês anterior</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-[#000000] shadow-sm rounded-lg">
@@ -492,7 +545,7 @@ export default function AdminDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-3xl font-bold text-[#FAFAFA]">28</div>
-                    <p className="text-sm text-[#009FCC]">Este mês</p>
+                    <p className="text-sm text-[#FAFAFA]">Este mês</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-[#000000] shadow-sm rounded-lg">
@@ -501,7 +554,7 @@ export default function AdminDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-3xl font-bold text-[#FAFAFA]">R$ 8.774</div>
-                    <p className="text-sm text-[#009FCC]">Por projeto</p>
+                    <p className="text-sm text-[#FAFAFA]">Por projeto</p>
                   </CardContent>
                 </Card>
               </div>
@@ -512,7 +565,7 @@ export default function AdminDashboard() {
               <Card className="bg-[#000000] shadow-sm rounded-lg">
                 <CardHeader>
                   <CardTitle className="text-[#FAFAFA]">Gerenciamento de Clientes</CardTitle>
-                  <CardDescription className="text-[#009FCC]">
+                  <CardDescription className="text-[#FAFAFA]">
                     Lista de todos os clientes e seus projetos
                   </CardDescription>
                 </CardHeader>
@@ -546,7 +599,7 @@ export default function AdminDashboard() {
               <Card className="bg-[#000000] shadow-sm rounded-lg">
                 <CardHeader>
                   <CardTitle className="text-[#FAFAFA]">Projetos</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Gerencie todos os projetos cadastrados</CardDescription>
+                  <CardDescription className="text-[#FAFAFA]">Gerencie todos os projetos cadastrados</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="p-2 bg-[#1F2E4F] rounded-lg">
@@ -561,7 +614,7 @@ export default function AdminDashboard() {
               <Card className="bg-[#000000] shadow-sm rounded-lg">
                 <CardHeader>
                   <CardTitle className="text-[#FAFAFA]">Quadro de Tarefas</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Organize e acompanhe suas tarefas</CardDescription>
+                  <CardDescription className="text-[#FAFAFA]">Organize e acompanhe suas tarefas</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="p-2 bg-[#1F2E4F] rounded-lg">
@@ -576,7 +629,7 @@ export default function AdminDashboard() {
               <Card className="bg-[#000000] shadow-sm rounded-lg">
                 <CardHeader>
                   <CardTitle className="text-[#FAFAFA]">Agenda</CardTitle>
-                  <CardDescription className="text-[#009FCC]">
+                  <CardDescription className="text-[#FAFAFA]">
                     Gerencie seus compromissos e prazos.
                   </CardDescription>
                 </CardHeader>
@@ -584,7 +637,7 @@ export default function AdminDashboard() {
                   <div className="text-center py-12">
                     <CalendarDays className="h-12 w-12 text-[#009FCC] mx-auto mb-4" />
                     <p className="text-[#FAFAFA]">Sua agenda está vazia.</p>
-                    <p className="text-sm text-[#009FCC]">
+                    <p className="text-sm text-[#FAFAFA]">
                       Adicione novos eventos ou sincronize com seu calendário.
                     </p>
                     <Button className="mt-4 bg-[#009FCC] hover:bg-[#1F2E4F] text-[#FAFAFA] hover:text-[#009FCC]">
@@ -597,101 +650,31 @@ export default function AdminDashboard() {
 
             {/* Customization Tabs */}
             <TabsContent value="landing-page-editor" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Landing Page</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Edite a landing page do seu site</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <LandingPageEditor />
-                  </div>
-                </CardContent>
-              </Card>
+              <LandingPageEditor />
             </TabsContent>
 
             <TabsContent value="authentication-editor" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Autenticação</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Gerencie as opções de autenticação</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <AuthenticationEditor />
-                  </div>
-                </CardContent>
-              </Card>
+              <AuthenticationEditor />
             </TabsContent>
 
             <TabsContent value="dashboard-editor" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Dashboard</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Personalize o dashboard administrativo</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <AdminDashboardEditor />
-                  </div>
-                </CardContent>
-              </Card>
+              <AdminDashboardEditor />
             </TabsContent>
 
             <TabsContent value="sidebar-editor" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Sidebar</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Edite a barra lateral do sistema</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <SidebarEditor />
-                  </div>
-                </CardContent>
-              </Card>
+              <SidebarEditor />
             </TabsContent>
 
             <TabsContent value="colors-editor" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Cores</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Personalize as cores do sistema</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <ColorsEditor />
-                  </div>
-                </CardContent>
-              </Card>
+              <ColorsEditor />
             </TabsContent>
 
             <TabsContent value="clients-dashboard-editor" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Dashboard Cliente</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Personalize o dashboard do cliente</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <ClientDashboardEditor />
-                  </div>
-                </CardContent>
-              </Card>
+              <ClientDashboardEditor />
             </TabsContent>
 
             <TabsContent value="texts-editor" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Textos</CardTitle>
-                  <CardDescription className="text-[#009FCC]">Edite os textos do sistema</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <TextsEditor />
-                  </div>
-                </CardContent>
-              </Card>
+              <TextsEditor />
             </TabsContent>
           </Tabs>
         </div>
