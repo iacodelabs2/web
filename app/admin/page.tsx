@@ -25,7 +25,6 @@ import {
 } from "lucide-react"
 import { KanbanBoard } from "@/components/kanban-board"
 import { ProjectsManager } from "@/components/projects-manager"
-import { ProjectsConfig, Project } from "@/components/projects-config"
 
 import {
   SidebarProvider,
@@ -141,16 +140,11 @@ const clients = [
   },
 ]
 
-
 export default function AdminDashboard() {
-  // Estado para filtros de data
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  // Estado para projetos realizados
-  const [realizados, setRealizados] = useState<Project[]>([]);
   const [activeTab, setActiveTab] = useState("overview")
   const [userName, setUserName] = useState("Admin") // Default name
   const router = useRouter()
+  const supabase = getSupabaseClient()
 
   useEffect(() => {
     document.body.classList.add("dark-theme")
@@ -160,7 +154,6 @@ export default function AdminDashboard() {
   }, [])
 
   useEffect(() => {
-    const supabase = getSupabaseClient()
     const checkAuthAndFetchUser = async () => {
       const {
         data: { user },
@@ -182,10 +175,9 @@ export default function AdminDashboard() {
     }
 
     checkAuthAndFetchUser()
-  }, [router])
+  }, [router, supabase])
 
   const handleLogout = async () => {
-    const supabase = getSupabaseClient()
     const { error } = await supabase.auth.signOut()
     if (error) {
       console.error("Error logging out:", error.message)
@@ -196,13 +188,13 @@ export default function AdminDashboard() {
 
   return (
     <SidebarProvider>
-      <Sidebar className="bg-[#1F2E4F] shadow-lg">
-        <SidebarHeader className="p-4 bg-[#000000]">
-          <div className="text-xl font-bold text-[#FAFAFA]">
-            <span style={{ color: '#009FCC' }}>IA</span> Labs
+      <Sidebar className="bg-sidebar shadow-lg">
+        <SidebarHeader className="p-4 border-b border-sidebar-border">
+          <div className="text-xl font-bold text-sidebar-foreground">
+            <span className="text-purple-400">IA</span> Labs
           </div>
         </SidebarHeader>
-        <SidebarContent className="flex-1 overflow-y-auto p-2 bg-[#1F2E4F]">
+        <SidebarContent className="flex-1 overflow-y-auto p-2">
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton isActive={activeTab === "overview"} onClick={() => setActiveTab("overview")}>
@@ -268,16 +260,16 @@ export default function AdminDashboard() {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton onClick={() => setActiveTab("landing-page-editor")}> 
-                        <span>Landing Page</span>
+                      <SidebarMenuSubButton onClick={() => setActiveTab("projects")}>
+                        <FolderOpen className="h-4 w-4" />
+                        <span>Projetos do Site</span>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton onClick={() => setActiveTab("projects-config")}> 
-                        <span>Projetos Realizados</span>
+                      <SidebarMenuSubButton onClick={() => setActiveTab("landing-page-editor")}>
+                        <span>Landing Page</span>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
-            {/* O conteúdo de ProjectsConfig deve estar dentro do Tabs principal, não aqui */}
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton onClick={() => setActiveTab("authentication-editor")}>
                         <span>Autenticação</span>
@@ -314,7 +306,7 @@ export default function AdminDashboard() {
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarContent>
-        <SidebarFooter className="p-4 bg-[#000000]">
+        <SidebarFooter className="p-4 border-t border-sidebar-border">
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton onClick={handleLogout} className="text-red-400 hover:text-red-300">
@@ -326,9 +318,9 @@ export default function AdminDashboard() {
         </SidebarFooter>
       </Sidebar>
 
-      <SidebarInset className="bg-[#1F2E4F]">
+      <SidebarInset className="bg-background">
         {/* Header for mobile and content area */}
-        <header className="flex h-16 shrink-0 items-center gap-2 bg-[#000000] px-4 shadow-sm">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-border bg-card px-4 shadow-sm">
           <SidebarTrigger className="-ml-1 text-foreground" />
           <div className="flex-1 text-lg font-semibold text-foreground">Dashboard Administrativo</div>
           <div className="flex items-center space-x-2 text-muted-foreground">
@@ -337,73 +329,20 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <div className="p-6 bg-[#1F2E4F]">
+        <div className="p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
             {/* TabsContent for each section */}
-            <TabsContent value="projects-config" className="space-y-6">
-              <ProjectsConfig projects={realizados} onChange={setRealizados} />
-            </TabsContent>
             <TabsContent value="overview" className="space-y-6">
-              {/* Filtros de datas */}
-              <div className="flex flex-col md:flex-row md:items-end gap-4 mb-4">
-                <div className="flex flex-col md:flex-row gap-2">
-                  <div>
-                    <label
-                      htmlFor="start-date"
-                      className="block text-xs text-[#FAFAFA] mb-1 cursor-pointer"
-                      onClick={() => {
-                        const input = document.getElementById('start-date');
-                        if (input) input.focus();
-                      }}
-                    >
-                      Data Inicial
-                    </label>
-                    <input
-                      id="start-date"
-                      type="date"
-                      className="bg-[#1F2E4F] text-[#FAFAFA] rounded px-2 py-1 outline-none border-none"
-                      value={startDate}
-                      onChange={e => setStartDate(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="end-date"
-                      className="block text-xs text-[#FAFAFA] mb-1 cursor-pointer"
-                      onClick={() => {
-                        const input = document.getElementById('end-date');
-                        if (input) input.focus();
-                      }}
-                    >
-                      Data Final
-                    </label>
-                    <input
-                      id="end-date"
-                      type="date"
-                      className="bg-[#1F2E4F] text-[#FAFAFA] rounded px-2 py-1 outline-none border-none"
-                      value={endDate}
-                      onChange={e => setEndDate(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="bg-[#009FCC] text-[#FAFAFA] rounded px-4 py-2 font-medium hover:bg-[#1F2E4F] transition"
-                  onClick={() => { setStartDate(""); setEndDate(""); }}
-                >
-                  Limpar Filtros
-                </button>
-              </div>
               {/* Stats Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {dashboardStats.map((stat, index) => (
-                  <Card key={index} className="bg-[#000000] shadow-sm rounded-lg">
+                  <Card key={index} className="bg-card shadow-sm">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-[#FAFAFA]">{stat.title}</CardTitle>
+                      <CardTitle className="text-sm font-medium text-muted-foreground">{stat.title}</CardTitle>
                       <stat.icon className={`h-4 w-4 ${stat.color}`} />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-[#FAFAFA]">{stat.value}</div>
+                      <div className="text-2xl font-bold text-foreground">{stat.value}</div>
                       <p className="text-xs text-green-400 flex items-center">
                         <TrendingUp className="h-3 w-3 mr-1" />
                         {stat.change} vs mês anterior
@@ -415,31 +354,31 @@ export default function AdminDashboard() {
 
               {/* Recent Activity */}
               <div className="grid lg:grid-cols-2 gap-6">
-                <Card className="bg-[#000000] shadow-sm rounded-lg">
+                <Card className="bg-card shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-[#FAFAFA]">Contatos Recentes</CardTitle>
-                    <CardDescription className="text-[#FAFAFA]">Últimas solicitações recebidas</CardDescription>
+                    <CardTitle className="text-foreground">Contatos Recentes</CardTitle>
+                    <CardDescription className="text-muted-foreground">Últimas solicitações recebidas</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {recentContacts.map((contact) => (
                         <div
                           key={contact.id}
-                          className="flex items-center justify-between p-3 bg-[#1F2E4F] rounded-lg"
+                          className="flex items-center justify-between p-3 bg-muted rounded-lg border border-border"
                         >
                           <div>
-                            <p className="font-medium text-[#FAFAFA]">{contact.name}</p>
-                            <p className="text-sm text-[#FAFAFA]">{contact.email}</p>
-                            <p className="text-xs text-[#FAFAFA]">{contact.project}</p>
+                            <p className="font-medium text-foreground">{contact.name}</p>
+                            <p className="text-sm text-muted-foreground">{contact.email}</p>
+                            <p className="text-xs text-muted-foreground">{contact.project}</p>
                           </div>
                           <div className="text-right">
                             <Badge
                               variant={contact.status === "Novo" ? "default" : "secondary"}
-                              className="bg-[#009FCC] text-[#FAFAFA]"
+                              className="bg-primary text-primary-foreground"
                             >
                               {contact.status}
                             </Badge>
-                            <p className="text-xs text-[#FAFAFA] mt-1">{contact.date}</p>
+                            <p className="text-xs text-muted-foreground mt-1">{contact.date}</p>
                           </div>
                         </div>
                       ))}
@@ -447,28 +386,28 @@ export default function AdminDashboard() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-[#000000] shadow-sm rounded-lg">
+                <Card className="bg-card shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-[#FAFAFA]">Métricas do Mês</CardTitle>
-                    <CardDescription className="text-[#FAFAFA]">Performance atual</CardDescription>
+                    <CardTitle className="text-foreground">Métricas do Mês</CardTitle>
+                    <CardDescription className="text-muted-foreground">Performance atual</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-[#FAFAFA]">Taxa de Conversão</span>
-                        <span className="font-medium text-[#009FCC]">5.8%</span>
+                        <span className="text-sm text-foreground">Taxa de Conversão</span>
+                        <span className="font-medium text-foreground">5.8%</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-[#FAFAFA]">Tempo Médio no Site</span>
-                        <span className="font-medium text-[#009FCC]">3m 42s</span>
+                        <span className="text-sm text-foreground">Tempo Médio no Site</span>
+                        <span className="font-medium text-foreground">3m 42s</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-[#FAFAFA]">Projetos Ativos</span>
-                        <span className="font-medium text-[#009FCC]">12</span>
+                        <span className="text-sm text-foreground">Projetos Ativos</span>
+                        <span className="font-medium text-foreground">12</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-[#FAFAFA]">Satisfação do Cliente</span>
-                        <span className="font-medium text-[#009FCC]">4.9/5</span>
+                        <span className="text-sm text-foreground">Satisfação do Cliente</span>
+                        <span className="font-medium text-foreground">4.9/5</span>
                       </div>
                     </div>
                   </CardContent>
@@ -478,10 +417,10 @@ export default function AdminDashboard() {
 
             {/* Contacts Tab */}
             <TabsContent value="contacts" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
+              <Card className="bg-card shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Gerenciamento de Contatos</CardTitle>
-                  <CardDescription className="text-[#FAFAFA]">
+                  <CardTitle className="text-foreground">Gerenciamento de Contatos</CardTitle>
+                  <CardDescription className="text-muted-foreground">
                     Todos os contatos e solicitações de orçamento
                   </CardDescription>
                 </CardHeader>
@@ -490,20 +429,34 @@ export default function AdminDashboard() {
                     {recentContacts.map((contact) => (
                       <div
                         key={contact.id}
-                        className="flex items-center justify-between p-3 bg-[#1F2E4F] rounded-lg"
+                        className="flex items-center justify-between p-4 border rounded-lg bg-muted"
                       >
-                        <div>
-                          <p className="font-medium text-[#FAFAFA]">{contact.name}</p>
-                          <p className="text-sm text-[#FAFAFA]">{contact.email}</p>
-                          <p className="text-xs text-[#FAFAFA]">{contact.project}</p>
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-4">
+                            <div>
+                              <p className="font-medium text-foreground">{contact.name}</p>
+                              <p className="text-sm text-muted-foreground">{contact.email}</p>
+                            </div>
+                            <Badge variant="outline" className="border-border text-foreground">
+                              {contact.type}
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2">Projeto: {contact.project}</p>
                         </div>
-                        <div className="text-right">
+                        <div className="flex items-center space-x-2">
                           <Badge
                             variant={contact.status === "Novo" ? "default" : "secondary"}
-                            className="bg-[#009FCC] text-[#FAFAFA]"
+                            className="bg-primary text-primary-foreground"
                           >
                             {contact.status}
                           </Badge>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-border text-foreground hover:bg-accent bg-transparent"
+                          >
+                            Responder
+                          </Button>
                         </div>
                       </div>
                     ))}
@@ -514,47 +467,37 @@ export default function AdminDashboard() {
 
             {/* Chat Tab */}
             <TabsContent value="chat" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Chat</CardTitle>
-                  <CardDescription className="text-[#FAFAFA]">Converse com seus clientes em tempo real</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <ChatInterface />
-                  </div>
-                </CardContent>
-              </Card>
+              <ChatInterface />
             </TabsContent>
 
             {/* Financial Tab */}
             <TabsContent value="financial" className="space-y-6">
               <div className="grid lg:grid-cols-3 gap-6">
-                <Card className="bg-[#000000] shadow-sm rounded-lg">
+                <Card className="bg-card shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-[#FAFAFA]">Receita Total</CardTitle>
+                    <CardTitle className="text-foreground">Receita Total</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="text-3xl font-bold text-green-400">R$ 245.680</div>
-                    <p className="text-sm text-[#FAFAFA]">+18.2% vs mês anterior</p>
+                    <p className="text-sm text-muted-foreground">+18.2% vs mês anterior</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-[#000000] shadow-sm rounded-lg">
+                <Card className="bg-card shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-[#FAFAFA]">Projetos Faturados</CardTitle>
+                    <CardTitle className="text-foreground">Projetos Faturados</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-[#FAFAFA]">28</div>
-                    <p className="text-sm text-[#FAFAFA]">Este mês</p>
+                    <div className="text-3xl font-bold text-foreground">28</div>
+                    <p className="text-sm text-muted-foreground">Este mês</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-[#000000] shadow-sm rounded-lg">
+                <Card className="bg-card shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-[#FAFAFA]">Ticket Médio</CardTitle>
+                    <CardTitle className="text-foreground">Ticket Médio</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-[#FAFAFA]">R$ 8.774</div>
-                    <p className="text-sm text-[#FAFAFA]">Por projeto</p>
+                    <div className="text-3xl font-bold text-foreground">R$ 8.774</div>
+                    <p className="text-sm text-muted-foreground">Por projeto</p>
                   </CardContent>
                 </Card>
               </div>
@@ -562,27 +505,27 @@ export default function AdminDashboard() {
 
             {/* Clients Tab */}
             <TabsContent value="clients" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
+              <Card className="bg-card shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Gerenciamento de Clientes</CardTitle>
-                  <CardDescription className="text-[#FAFAFA]">
+                  <CardTitle className="text-foreground">Gerenciamento de Clientes</CardTitle>
+                  <CardDescription className="text-muted-foreground">
                     Lista de todos os clientes e seus projetos
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {clients.map((client) => (
-                      <div key={client.id} className="flex items-center justify-between p-3 bg-[#1F2E4F] rounded-lg">
+                      <div key={client.id} className="flex items-center justify-between p-4 border rounded-lg bg-muted">
                         <div>
-                          <p className="font-medium text-[#FAFAFA]">{client.name}</p>
-                          <p className="text-sm text-[#FAFAFA]">{client.email}</p>
-                          <p className="text-xs text-[#FAFAFA]">{client.projects} projetos</p>
+                          <p className="font-medium text-foreground">{client.name}</p>
+                          <p className="text-sm text-muted-foreground">{client.email}</p>
+                          <p className="text-xs text-muted-foreground">{client.projects} projetos</p>
                         </div>
                         <div className="text-right">
-                          <p className="font-medium text-[#FAFAFA]">{client.value}</p>
+                          <p className="font-medium text-foreground">{client.value}</p>
                           <Badge
                             variant={client.status === "Ativo" ? "default" : "secondary"}
-                            className="bg-[#009FCC] text-[#FAFAFA]"
+                            className="bg-primary text-primary-foreground"
                           >
                             {client.status}
                           </Badge>
@@ -596,51 +539,37 @@ export default function AdminDashboard() {
 
             {/* Projects Tab */}
             <TabsContent value="projects" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Projetos</CardTitle>
-                  <CardDescription className="text-[#FAFAFA]">Gerencie todos os projetos cadastrados</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <ProjectsManager />
-                  </div>
-                </CardContent>
-              </Card>
+              <ProjectsManager />
             </TabsContent>
 
             {/* Tasks Tab */}
             <TabsContent value="tasks" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Quadro de Tarefas</CardTitle>
-                  <CardDescription className="text-[#FAFAFA]">Organize e acompanhe suas tarefas</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-2 bg-[#1F2E4F] rounded-lg">
-                    <KanbanBoard />
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="space-y-8">
+                {/* Teste de Drag and Drop removido */}
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground mb-4">Quadro de Tarefas</h2>
+                  <KanbanBoard />
+                </div>
+              </div>
             </TabsContent>
 
             {/* Agenda Tab */}
             <TabsContent value="agenda" className="space-y-6">
-              <Card className="bg-[#000000] shadow-sm rounded-lg">
+              <Card className="bg-card shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-[#FAFAFA]">Agenda</CardTitle>
-                  <CardDescription className="text-[#FAFAFA]">
+                  <CardTitle className="text-foreground">Agenda</CardTitle>
+                  <CardDescription className="text-muted-foreground">
                     Gerencie seus compromissos e prazos.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
-                    <CalendarDays className="h-12 w-12 text-[#009FCC] mx-auto mb-4" />
-                    <p className="text-[#FAFAFA]">Sua agenda está vazia.</p>
-                    <p className="text-sm text-[#FAFAFA]">
+                    <CalendarDays className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <p className="text-foreground">Sua agenda está vazia.</p>
+                    <p className="text-sm text-muted-foreground">
                       Adicione novos eventos ou sincronize com seu calendário.
                     </p>
-                    <Button className="mt-4 bg-[#009FCC] hover:bg-[#1F2E4F] text-[#FAFAFA] hover:text-[#009FCC]">
+                    <Button className="mt-4 bg-primary hover:bg-primary-foreground text-primary-foreground hover:text-primary">
                       Adicionar Evento
                     </Button>
                   </div>

@@ -55,12 +55,6 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
   const buttonBg = darkMode ? "bg-white text-[#009FCC]" : "bg-[#009FCC] text-white";
   const buttonHover = darkMode ? "hover:bg-white" : "hover:bg-[#00BFFF]";
   return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     <div className={`flex min-h-screen flex-col ${bgColor} ${textColor} transition-colors duration-300`}>
       <header className={`container mx-auto px-4 py-6 ${bgColor} fixed top-0 left-0 right-0 z-50 bg-opacity-80 backdrop-blur`} style={{backgroundColor: darkMode ? '#009FCCcc' : '#ffffffcc'}}>
         <div className="flex items-center justify-between w-full">
@@ -72,162 +66,30 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
                   className={`text-white hover:text-white${activeHash === '#features' ? ' font-bold underline' : ''}`}
                   href="#features"
                 >
-=======
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-50">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between w-full">
-          <div className="text-2xl font-bold text-purple-500 flex-shrink-0">{siteContent.header_logo_text}</div>
-          <nav className="flex-1 flex justify-center">
-            <ul className="flex space-x-6">
-              <li>
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
->>>>>>> parent of 2e44395 (.)
-=======
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-50">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between w-full">
-          <div className="text-2xl font-bold text-purple-500 flex-shrink-0">{siteContent.header_logo_text}</div>
-          <nav className="flex-1 flex justify-center">
-            <ul className="flex space-x-6">
-              <li>
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
->>>>>>> parent of 2e44395 (.)
-=======
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-50">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between w-full">
-          <div className="text-2xl font-bold text-purple-500 flex-shrink-0">{siteContent.header_logo_text}</div>
-          <nav className="flex-1 flex justify-center">
-            <ul className="flex space-x-6">
-              <li>
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
->>>>>>> parent of 2e44395 (.)
-=======
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-50">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between w-full">
-          <div className="text-2xl font-bold text-purple-500 flex-shrink-0">{siteContent.header_logo_text}</div>
-          <nav className="flex-1 flex justify-center">
-            <ul className="flex space-x-6">
-              <li>
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
->>>>>>> parent of 2e44395 (.)
-=======
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-50">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between w-full">
-          <div className="text-2xl font-bold text-purple-500 flex-shrink-0">{siteContent.header_logo_text}</div>
-          <nav className="flex-1 flex justify-center">
-            <ul className="flex space-x-6">
-              <li>
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
->>>>>>> parent of 2e44395 (.)
-=======
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-50">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between w-full">
-          <div className="text-2xl font-bold text-purple-500 flex-shrink-0">{siteContent.header_logo_text}</div>
-          <nav className="flex-1 flex justify-center">
-            <ul className="flex space-x-6">
-              <li>
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#features">
->>>>>>> parent of 2e44395 (.)
                   Recursos
                 </Link>
               </li>
               <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <Link
                   className={`text-white hover:text-white${activeHash === '#projects' ? ' font-bold underline' : ''}`}
                   href="#projects"
                 >
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#projects">
->>>>>>> parent of 2e44395 (.)
                   Projetos
                 </Link>
               </li>
               <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <Link
                   className={`text-white hover:text-white${activeHash === '#about' ? ' font-bold underline' : ''}`}
                   href="#about"
                 >
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#about">
->>>>>>> parent of 2e44395 (.)
                   Sobre Nós
                 </Link>
               </li>
               <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <Link
                   className={`text-white hover:text-white${activeHash === '#contact' ? ' font-bold underline' : ''}`}
                   href="#contact"
                 >
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
->>>>>>> parent of 2e44395 (.)
-=======
-                <Link className="hover:text-[#009FCC] text-[#009FCC]" href="#contact">
->>>>>>> parent of 2e44395 (.)
                   Contato
                 </Link>
               </li>
@@ -243,31 +105,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
               {darkMode ? <Sun className="w-5 h-5 text-yellow-300" /> : <Moon className="w-5 h-5 text-[#009FCC]" />}
             </button>
             <Link href="/auth/login">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
               <button className={`px-4 py-2 rounded font-semibold border ${borderColor} ${buttonBg} ${buttonHover} transition-colors`}>
-=======
-              <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
->>>>>>> parent of 2e44395 (.)
-=======
-              <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
->>>>>>> parent of 2e44395 (.)
-=======
-              <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
->>>>>>> parent of 2e44395 (.)
-=======
-              <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
->>>>>>> parent of 2e44395 (.)
-=======
-              <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
->>>>>>> parent of 2e44395 (.)
-=======
-              <button className="px-4 py-2 rounded bg-[#009FCC] text-white font-semibold hover:bg-[#00BFFF] transition-colors">
->>>>>>> parent of 2e44395 (.)
                 Login
               </button>
             </Link>
@@ -275,26 +113,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
         </div>
       </header>
 
-<<<<<<< HEAD
       <main className="flex-1 pt-24">
-=======
-      <main className="flex-1">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 2e44395 (.)
-=======
->>>>>>> parent of 2e44395 (.)
-=======
->>>>>>> parent of 2e44395 (.)
-=======
->>>>>>> parent of 2e44395 (.)
-=======
->>>>>>> parent of 2e44395 (.)
-=======
->>>>>>> parent of 2e44395 (.)
         <section
           className="relative flex h-[600px] items-center justify-center overflow-hidden py-20 text-center"
           style={{
@@ -314,11 +133,11 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
             <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">{siteContent.hero_title}</h1>
             <p className="mt-6 text-xl">{siteContent.hero_subtitle}</p>
             <div className="mt-10 flex justify-center space-x-4">
-              <Button className="bg-[#009FCC] px-8 py-3 text-lg font-semibold text-white hover:bg-[#00BFFF]">
+              <Button className="bg-[#FFFFFF] px-8 py-3 text-lg font-semibold text-[#009FCC] hover:bg-[#00BFFF]">
                 {siteContent.hero_button1_text}
               </Button>
               <Button
-                className="border-[#009FCC] bg-transparent px-8 py-3 text-lg font-semibold text-[#009FCC] hover:bg-[#009FCC] hover:text-white"
+                className="border-[#FFFFFF] bg-transparent px-8 py-3 text-lg font-semibold text-[#FFFFFF] hover:bg-[#FFFFFF] hover:text-[#009FCC]"
                 variant="outline"
               >
                 {siteContent.hero_button2_text}
@@ -329,7 +148,7 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 
         <section id="features" className="py-20" style={{ backgroundColor: '#111827' }}>
           <div className="container mx-auto px-4 text-center">
-            <h2 className="mb-12 text-4xl font-bold text-[#009FCC]">{siteContent.features_title}</h2>
+            <h2 className="mb-12 text-4xl font-bold text-[#FFFFFF]">{siteContent.features_title}</h2>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               <Card className="bg-gray-800 text-gray-50 shadow-lg">
                 <CardHeader>
@@ -367,16 +186,16 @@ export function LandingPagePreview({ siteContent }: LandingPagePreviewProps) {
 
         <section id="about" className="bg-gray-900 py-20">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="mb-8 text-4xl font-bold text-[#009FCC]">{siteContent.about_section_title}</h2>
+            <h2 className="mb-8 text-4xl font-bold text-[#FFFFFF]">{siteContent.about_section_title}</h2>
             <p className="mx-auto max-w-3xl text-lg text-gray-300">{siteContent.about_us_content}</p>
           </div>
         </section>
 
         <section id="contact" className="py-20" style={{ backgroundColor: '#1F2E4F' }}>
           <div className="container mx-auto px-4 text-center">
-            <h2 className="mb-8 text-4xl font-bold text-[#009FCC]">{siteContent.contact_section_title}</h2>
+            <h2 className="mb-8 text-4xl font-bold text-[#FFFFFF]">{siteContent.contact_section_title}</h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-300">{siteContent.contact_section_description}</p>
-            <Button className="mt-8 bg-[#009FCC] px-8 py-3 text-lg font-semibold text-white hover:bg-[#00BFFF]">
+            <Button className="mt-8 bg-[#FFFFFF] px-8 py-3 text-lg font-semibold text-[#009FCC] hover:bg-[#00BFFF]">
               <Link href={`mailto:${siteContent.contact_email}`}>{siteContent.contact_button_text}</Link>
             </Button>
           </div>

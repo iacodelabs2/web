@@ -1,7 +1,5 @@
 "use client"
 
-export const dynamic = "force-dynamic";
-
 import type React from "react"
 
 import { useState } from "react"
@@ -10,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { getSupabaseClient } from "@/lib/supabase-client"
+import { supabase } from "@/lib/supabase-client" // Importar o cliente Supabase
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -22,9 +20,8 @@ export default function ForgotPasswordPage() {
     setMessage("")
     setError("")
 
-    const supabase = getSupabaseClient()
     const { error: supabaseError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/update-password`,
+      redirectTo: `${window.location.origin}/auth/update-password`, // URL para onde o usuário será redirecionado após clicar no link do e-mail
     })
 
     if (supabaseError) {
